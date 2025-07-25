@@ -1,6 +1,7 @@
 from fastapi import FastAPI, Depends
 from common.db import wait_for_db, SessionDep
 from model.users import User, UserRole
+from sqlmodel import select
 import uuid
 from typing import Optional, List
 
