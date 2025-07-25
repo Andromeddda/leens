@@ -13,7 +13,7 @@ def on_startup():
 
 # Create user
 @app.post("/users/", response_model=User)
-def create_user(user: User, session: SessionDep):
+async def create_user(user: User, session: SessionDep):
     session.add(user)
     session.commit()
     session.refresh(user)
@@ -21,7 +21,7 @@ def create_user(user: User, session: SessionDep):
 
 # Get user by UUID
 @app.get("/users/{user_id}", response_model=User)
-def get_user(user_id: uuid.UUID, session: SessionDep):
+async def get_user(user_id: uuid.UUID, session: SessionDep):
     user = session.get(User, user_id)
     if not user:
         raise HTTPException(status_code=404, detail="User not found")
@@ -29,7 +29,7 @@ def get_user(user_id: uuid.UUID, session: SessionDep):
 
 # Get all users (filter by role optionally)
 @app.get("/users/", response_model=List[User])
-def list_users(user_role: Optional[UserRole], session: SessionDep):
+async def list_users(user_role: Optional[UserRole], session: SessionDep):
     # select all
     users = select(User)
 

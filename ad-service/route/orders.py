@@ -3,12 +3,15 @@ from sqlmodel import select
 from datetime import datetime
 from common.db import SessionDep
 from model.order import Order, OrderStatus
+from util.users import verify_user_exists
 
 router = APIRouter(prefix="/orders")
 
 # Create order
 @router.post("/", response_model=Order)
-def create_order(order: Order, session: SessionDep):
+async def create_order(order: Order, session: SessionDep):
+    await verify_user_exists(order.advertiser_id)
+
     session.add(order)
     session.commit()
     session.refresh(order)
@@ -16,12 +19,12 @@ def create_order(order: Order, session: SessionDep):
 
 # Get all orders
 @router.get("/", response_model=list[Order])
-def list_orders(session: SessionDep):
+async def list_orders(session: SessionDep):
     return session.exec(select(Order)).all()
 
 # Get order by id
 @router.get("/{order_id}", response_model=Order)
-def get_order(order_id: int, session: SessionDep):
+async def get_order(order_id: int, session: SessionDep):
     order = session.get(Order, order_id)
     if not order:
         raise HTTPException(status_code=404, detail="Order not found")
