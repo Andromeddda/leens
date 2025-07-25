@@ -6,6 +6,8 @@ services:
             additional_contexts:
                 common: ./common
         ports: ["8081:8081"]
+        environment:
+            DATABASE_URL: postgresql+psycopg2://postgres:postgres@postgres:5432/storage
         networks:
             - default
         depends_on:
@@ -18,6 +20,8 @@ services:
             additional_contexts:
                 common: ./common
         ports: ["8082:8082"]
+        environment:
+            DATABASE_URL: postgresql+psycopg2://postgres:postgres@postgres:5432/storage
         networks:
             - default
         depends_on:
@@ -39,4 +43,3 @@ services:
             interval: 5s
             timeout: 5s
             retries: 10
-  
