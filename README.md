@@ -34,3 +34,28 @@ docker compose up -d
 docker compose stop
 ```
 
+## Примеры взаимодействия (cURL)
+### Создание пользователя
+```
+curl -X POST http://localhost:8082/users/ \
+  -H "Content-Type: application/json" \
+  -d '{
+    "username": "Daniel",
+    "role": "advertiser"
+}'
+```
+
+### Получение всех пользователей-рекламодателей
+```
+curl "http://localhost:8082/users/?user_role=advertiser"
+```
+
+### Получение всех каналов
+```
+curl http://localhost:8081/channels/
+```
+
+### Получение всех заказов
+```
+curl http://localhost:8081/orders/
+```
