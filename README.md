@@ -9,9 +9,9 @@
 - docker-compose
 
 ## Запуск
-### Клонирование репозитория (SSH)
+### Клонирование репозитория (URL)
 ```
-git clone git@github.com:Andromeddda/leens.git && cd leens/
+git clone https://github.com/Andromeddda/leens/ && cd leens/
 ```
 
 ### Сборка образов
