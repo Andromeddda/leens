@@ -4,6 +4,8 @@ from common.db import SessionDep
 from model.channel import Channel
 from util.users import verify_user_exists
 
+from sqlmodel import select
+
 router = APIRouter(prefix="/channels")
 
 # Create channel
